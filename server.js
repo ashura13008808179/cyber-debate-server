@@ -278,9 +278,19 @@ async function callDeepSeek(systemPrompt, userPrompt, historyMessages = []) {
   }
 }
 // ========== 中间件：日志 ==========
+
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
+});
+
+// ========== 健康检查接口 ==========
+app.get('/', (req, res) => {
+  res.json({
+    ok: true,
+    message: '赛博斗蛐蛐 API 服务运行正常',
+    timestamp: new Date().toISOString()
+  });
 });
 
 // ========== 主接口：生成下一轮辩论 ==========
